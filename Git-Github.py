@@ -136,6 +136,9 @@ git branch = """ Connaître les branches présentes dans notre projet.  L’éto
                       * master
              """ Cette commande va créer la branche Cagnotte en local (elle ne va pas être dupliquée sur le dépôt distant). """
                  ex : $ git branch cagnotte
+             """ ajouter une branch local sur github"""
+                 ex : $ git push test test1 #test1 le nom de la branch a envoyer
+                 #(correspond a OC dans un exemple au dessus la j'ai mi test mais je crois que la convension est "origin")    
  
 git branch -d = """ supprime une branche """
                     ex : git branch -d nomBrachASupprimer
@@ -552,6 +555,8 @@ clés SSH = """ Git base toute sa gestion d’authentification sur le mécanisme
 
 
 git push = """ permet d'envoyer les modifications que l'on a réalisées en local sur le dépôt à distance"""
+
+
 
 git pull = """  permet de récupérer en local le projet distant"""
 

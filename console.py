@@ -341,7 +341,7 @@ ajouter un user dans un groupe ="""c'est important!! """
 exemple installer git  =    sudo apt install git
 
 
- curl  = "recup fichier sur le net"  
+curl  = "recup fichier sur le net, pas très clair je vais devoir chercher"  
 esc :wq! = """sortir et sauvegarder d'un vi !!!"""
 
 nano  Ctrl+o ="""nano afficher et modifier un fichier dans la console, sauvegarder  avec nano peut etre avec autre chose"""
