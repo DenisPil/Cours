@@ -309,7 +309,7 @@ requirements.txt = """ Pour garantir que tous les développeurs travaillant sur 
 
 Terminal linux 
 
-sudo su - " admin"
+sudo su = " admin"
 
 apt = "gestion des paquets éco ubuntu"
 
@@ -333,20 +333,17 @@ Ctrl+W = "efface le dernier mot"
 
 Ctrl+N,T =  """ crée nouvelle fenetre ou nouvelle onglet"""
 
-
-
 realpath "donne le chemin exact d'un dossier"
 
 ajouter un user dans un groupe ="""c'est important!! """
                                  ex : usermod -aG vboxsf dalton-x # vboxsf est le grtoupe dans le quel dalton rentre uniquement en root
 
-
 exemple installer git  =    sudo apt install git
 
 
  curl  = "recup fichier sur le net"  
-:wq! = """sauvegarder"""
+esc :wq! = """sortir et sauvegarder d'un vi !!!"""
 
- nano  Ctrl+o =""" sauvegarder  davec nano peut etre avec autre chose"""
+nano  Ctrl+o ="""nano afficher et modifier un fichier dans la console, sauvegarder  avec nano peut etre avec autre chose"""
 
 alias cat="batcat -p" = """ créé un alias pour ganger du temps, on vire le -p pour ameliorer la mise en page"""                            
