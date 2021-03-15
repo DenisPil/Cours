@@ -38,6 +38,11 @@ Explore  =     """ Via Explore, vous pourrez trouver de nouveaux projets open so
 
 
 
+
+
+
+
+
                                         Git (bach)
                                 """ Git gère les versions de vos travaux locaux à travers 3 zones locales majeures :
                                     le répertoire de travail (working directory/WD) ;
@@ -551,24 +556,22 @@ clés SSH = """ Git base toute sa gestion d’authentification sur le mécanisme
                La clé id_rsa.txt est votre clé privée alors que la clé id_rsa.pub est votre clé publique.
                Premiere utilisation de la clé public dans github settings """                             
 
-
-
-
-git push = """ permet d'envoyer les modifications que l'on a réalisées en local sur le dépôt à distance"""
-
-
-
-git pull = """  permet de récupérer en local le projet distant"""
-
-git add = """ 
-
-
-
-
-
-
-
-
+git submodule = """ Les sous-modules reposent sur l'imbrication de dépôts : vous avez des dépôts… dans des dépôts. 
+                    vous développez deux projets totalement distincts, mais qui vont à un moment devoir se retrouver. 
+                    C'est un cas typique d'utilisation des sous-modules Git, car ils vont vous permettre d'inclure 
+                    un autre dépôt Git au sein de votre projet actuel. Il vous sera alors possible de gérer vos commits 
+                    séparément pour chacun des dépôts. Cette commande va ajouter à notre dépôt courant le projet ProjetSubModule, 
+                    comme sous-module dans le dossier Dossier/Destination. Vous noterez également qu'au travers de cette opération, 
+                    Git a ajouté un nouveau fichier de configuration nommé .gitmodules contenant 
+                    la description des sous-modules utilisés par le projet."""
+                    ex : $ git submodule add https://github.com/etudiantOC/ProjetSubModule dossier/destination
+ 
+git subtree = """ garder une fonctionnalité pour la réutiliser dans d'autres projets. Il pourrait être très facile de juste 
+                  copier-coller les fichiers, et de les remettre plus tard dans les autres projets. Cependant, 
+                  vous perdriez tout l'historique sur ces fonctionnalités. Heureusement, il existe les sous-arborescences Git ! 
+                  Git subtree va vous permettre de créer un nouvel arbre de commits pour un sous-dossier de votre dépôt Git. 
+                  Autrement dit, Git subtree régénère l’historique d’un dossier."""
+                  ex : $ git subtree push -P monRépertoire git@mon-serveur-git:group/projet.git master
 
 
 
@@ -585,7 +588,127 @@ git add = """
 
 
 
+                                WORKFLOW GIT :
 
+                            """ Un workflow Git est une recommandation sur la façon d'utiliser Git pour effectuer un travail de 
+                                manière cohérente et productive. Plusieurs workflows connus sont couramment utilisés par les développeurs 
+                                pour des projets personnels, mais aussi par les entreprises. Pour que l'équipe soit sur la même page, 
+                                un workflow Git convenu doit être développé ou sélectionné. Il existe plusieurs flux de travail 
+                                Git connus qui conviendront peut-être à votre équipe """
+
+
+workflow fork (duplication) = """ Au lieu d'utiliser un dépôt unique côté serveur pour agir en tant que base de code « centrale », 
+                                  ce workflow fournit un dépôt côté serveur à chaque développeur. Par conséquent, chaque contributeur 
+                                  dispose non pas d'un, mais de deux dépôts Git : un privé en local et un public côté serveur. """
+
+workflow de fonctionnalités = """ Le principe de base du workflow de branche par fonctionnalité est que chaque fonctionnalité est 
+                                  développée dans une branche prévue à cet effet plutôt que dans la branche master. 
+                                  Grâce à cette encapsulation, plusieurs développeurs peuvent travailler aisément sur une même 
+                                  fonctionnalité sans modifier la base de code principale. Il sera utilisé essentiellement 
+                                  dans le cadre de l'intégration continue. """                                         
+
+workflow GitFlow = """ GitFlow est une méthode, une architecture Git permettant de séparer au maximum le travail et de toucher 
+                       le moins possible à la branche master. Cette méthode représente donc une architecture en branches. 
+                       GitFlow est une des architectures les plus connues. GitFlow n'ajoute aucun concept ni aucune commande, 
+                       il attribue plutôt des rôles très spécifiques aux différentes branches et définit comment et quand elles doivent 
+                       interagir.  GitFlow, il va falloir dans un premier temps l'installer.
+                       
+                       Fonctionnement : GitFlow va définir dans un premier temps deux branches distinctes dans lesquelles les développeurs 
+                       n'auront aucunement le droit de développer. La branche master est la branche qui va correspondre 
+                       à notre environnement de production. Il est donc logique que l'on ne puisse y pousser nos modifications directement. 
+                       La branche Develop centralise toutes les nouvelles fonctionnalités qui seront livrées dans la prochaine version. 
+                       Ici, il va falloir se forcer à ne pas y faire de modifications directement. Dans le cadre d'un gros projet, 
+                       la branche Develop correspond en général à notre environnement de recette. 
+                       L'environnement de recette est une copie du projet qui est censée partir en production et où 
+                       les testeurs vont réaliser une batterie de tests afin d'être sûrs de ne pas envoyer de bugs en production. 
+                       La branche master stocke l'historique officiel des versions, et la branche Develop sert de branche d'intégration 
+                       pour les fonctionnalités.
+                       GitFlow ne se contente bien sûr pas uniquement de deux branches. À ces deux branches vont venir s'ajouter 
+                       trois autres types de branches : 
+                       - Les branches Feature permettent de commencer à travailler sur une nouvelle fonctionnalité. 
+                         La branche Feature est créée à partir de la branche Develop. Vous devrez créer pour chaque nouvelle 
+                         fonctionnalité une branche Feature ! Lorsque nous avons fini de développer notre nouvelle fonctionnalité, 
+                         il faudra alors la commiter puis la fusionner sur la branche Develop.
+                       - La branche Hotfix, quant à elle, va permettre de corriger un bug en production. 
+                         En ce sens, elle sera créée à partir de la branche master, car c'est la branche master qui correspond 
+                         à l'environnement de production. Une fois la branche Hotfix terminée, elle est mergée dans la 
+                         branche Develop et dans la branche master.
+                       - La branche Release est créée à partir de la branche Develop en cas de livraison en production imminente. 
+                         En effet, dans le cadre d'un projet un peu plus conséquent, il y a souvent plusieurs versions. 
+                         Une fois que toutes les fonctionnalités d'une version ont été créées, c'est à ce moment que nous devons 
+                         créer une branche Release. Elle va permettre de réaliser nos tests alors que d'autres développeurs 
+                         pourront commencer à travailler sur la version suivante. Lorsque la branche Release est terminée, 
+                         nous devons la merger dans la branche Develop et dans la branche master.
+                         Il faut installer git flow avec la commande "$ sudo apt-get install git-flow"""  
+                       ex : "création repertoire du flow et ce placer a l'interieur" 
+                            $ mkdir gitflow  
+                            $ git flow init
+                            Dépôt Git vide initialisé dans /home/dalton-x/VirtualPartage/gitflow/.git/
+                            No branches exist yet. Base branches must be created now.
+                            Branch name for production releases: [master] main
+                            Branch name for "next release" development: [develop] devlop
+                   """ Créer une feature. Étant au tout début du projet, notre feature va correspondre à la base notre projet. 
+                       Elle s’appellera donc main."""
+                       ex : $ git flow feature start main
+                   """ Avec l'exécution de cette commande, Git créera la branche Feature main et nous basculera dessus."""     
+                               
+     
+
+
+
+
+
+
+
+
+
+                                marketplace de GitHub : 
+
+
+
+WhiteSource Bolt = """ une application gratuite, qui analyse en permanence tous vos dépôts, détecte les vulnérabilités des 
+                       composants open source et apporte des correctifs. Il prend en charge les référentiels privés et publics !"""
+
+ZenHub = """ ZenHub est le seul outil de gestion de projet qui s'intègre de manière native dans l'interface utilisateur de GitHub. 
+             ZenHub est un outil de gestion de projet agile fonctionnant par sprint et générant des rapports assez poussé """
+
+Travis Ci = """ Dans le domaine de l'intégration continue, Travis CI permet à votre équipe de tester et déployer vos applications 
+                en toute confiance. Très polyvalent, il s'adapte aux petits comme aux grands projets. """                                   
+
+WinMerge et Meld = """Les deux ont exactement le même but, comparer simplement deux fichiers en indiquant les zones où votre code 
+                      est différent ! En plus de vous indiquer les différences entre vos deux fichiers, vous allez pouvoir les 
+                      fusionner de façon intelligente. Pour chaque ligne différente, l'outil de comparaison vous demandera 
+                      quelle version vous souhaitez conserver. Il est donc indispensable en cas de conflit dans Git.""" 
+
+
+
+
+
+
+
+
+
+
+
+
+                                GitLab : 
+                                # Pas installé ou vue encore pour plus d'info
+#https://openclassrooms.com/fr/courses/5641721-utilisez-git-et-github-pour-vos-projets-de-developpement/6113136-utilisez-le-gitlab-integration-continue-ic
+
+                            """ GitLab est une plateforme permettant d'héberger et gérer des projets web. 
+                                GitLab est considérée comme la plateforme des développeurs modernes ! Comparé à GitHub, 
+                                la palette fonctionnelle de GitLab se veut nettement plus large. Au-delà de la compilation 
+                                et de la gestion de dépôts de code source sur lesquels se concentre le premier, 
+                                GitLab s'étend au test logiciel, au packaging d'applications, à l'intégration et au déploiement 
+                                continus, à la configuration, jusqu'au monitoring et à la sécurité applicative."""   
+
+intégration continue (CI) = """ permet d'intégrer le code de votre équipe dans un référentiel partagé. Les développeurs partagent 
+                                leur nouveau code dans une demande de fusion (extraction), ce qui déclenche la création, 
+                                le test et la validation par un pipeline, avant la fusion des modifications dans votre référentiel. 
+                                GitLab CI/CD va vous permettre d’automatiser les builds, les tests, les déploiements, etc.  
+                                de vos applications. L’ensemble de vos tâches peut être divisé en étapes et l’ensemble 
+                                de vos tâches et étapes constituent un pipeline. Les outils d'intégration continue - CI,
+                                et de déploiement continu - CD, permettent d'automatiser beaucoup de processus 
 
 
 

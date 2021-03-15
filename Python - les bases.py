@@ -2038,6 +2038,7 @@ getpass() =     """ La fonction qui nous intéresse porte le même nom que le mo
 
 
 
+
                               module hashlib
 
                  """ Permet en partant d'un mot de passe, n'importe lequel, on arrive à une seconde chaîne de caractères, complètement incompréhensible. 
@@ -2238,7 +2239,7 @@ Initialisation des tests = " toutes nos méthodes de test commencent par cette l
                              Il existe également une méthode tearDown qui est appelée après chaque test. """              
 
      Récapitulatif complet du code de test : 
-     """ pour tester le code, vous pouvez ajouter l'instructionunittest.main()à la fin de votre module."""
+     """ pour tester le code, vous pouvez ajouter l'instruction "unittest.main()" à la fin de votre module."""
 import random
 import unittest
 
@@ -2686,3 +2687,15 @@ Des expressions compilées = """ Si, dans votre programme, vous utilisez plusieu
                                      mot_de_passe = ""
                                      while exp_mdp.search(mot_de_passe) is None:
                                           mot_de_passe = input("Tapez votre mot de passe : ")         
+
+
+
+
+
+
+
+
+
+
+
+
