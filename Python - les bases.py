@@ -2692,6 +2692,14 @@ Des expressions compilées = """ Si, dans votre programme, vous utilisez plusieu
 
 
 
+                    bs4, BeautifullSoup
+
+soup.find() = """ fonction .find permet de chercher des balises "<>" comme le titre ex <title>. .find va chercher dans
+                  le code html la balise avec le mot qui est en argument."""
+                  ex : title = soup.find("title") # cherche la balise avec le mot title 
+
+soup.findAll = """ rechercher toute les itérations de article (donc chercher le nombre d'objet "article" dans la page)"""
+                   ex : article_class= soup.findAll("article")    
 
 
 
