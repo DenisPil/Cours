@@ -86,7 +86,7 @@ from bs4 import BeautifulSoup
 
 links_books = []# on déplace la liste avant la boucle important !!!
 for i in range(51): #la boulce qui va itérer toute les pages le i représente les pages
-    url = 'https://books.toscrape.com/catalogue/page-' + str(i) + '.html'#concaténation du i(num page)faut voir sur chaque site comment est foutu l'url
+    url = 'https://books.toscrape.com/catalogue/page-' + str(i) + '.html'#concaténation du i(num page)faut voir sur chaque site comt c'est foutu l'url
     response = requests.get(url)#on déplace request.get avant le if  
     if response.ok:
         soup =  BeautifulSoup(response.text, 'html.parser' )
@@ -108,3 +108,22 @@ for i in range(51): #la boulce qui va itérer toute les pages le i représente l
         for link in links_books: # petite séquence pour lui dire que tous les livres(link) dans la liste[links_books] doivent etre copier
             file.write(link + '\n')   # tu copie dans file(le fichier urls.txt) et tu va a la ligne (\n)
 
+""" scraper les informations d'un livre le plus compliqué était "review_rating" car l'info etait dans le nom du code css a savoir le nombre 
+    d'étoile. la solution ce trouve  "class_= 'star-rating')['class'][1]" je sais pas trop comment mais le fait de faire class_ ... me permet
+    de prendre la donné que j'ai besoin. J'ai utiliser le meme procéder pour l'image """
+url = 'https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html'
+response = requests.get(url)
+if response.ok:
+    soup = BeautifulSoup(response.text, 'html.parser') #créa objet BeautifulSoup
+    product_information = soup.find('table', {'class': 'table table-striped'}).findAll('td')#objet avec toutes les infos dans table-striped
+    upc = product_information[0].text   
+    book_name = soup.find('h1').text
+    price_tax = product_information[3].text.replace('Â',"")
+    price_no_tax = product_information[2].text.replace('Â',"")
+    availability = product_information[5].text.replace('In stock', '')    
+    product_description = soup.findAll('p')[3].text
+    #category = soup.find()
+    review_rating = soup.find('p', class_= 'star-rating')['class'][1]#le plus compliqué §§§ ce souvenir du mot_ underscore et pas de {}
+    image_url = soup.find('img', src_= '')['src'][0:100]\
+        .replace('../..','https://books.toscrape.com/')
+    print(product_description,review_rating,image_url)
